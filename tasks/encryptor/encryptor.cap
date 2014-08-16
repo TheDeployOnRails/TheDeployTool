@@ -1,0 +1,19 @@
+namespace :encryptor do
+  namespace :config do
+    desc "cap production encryptor:config:copy"
+    task :copy do
+      on roles(:all) do
+        execute :mkdir, '-p', "#{ fetch(:configs_dir) }/initializers"
+        template "encryptor/the_encrypted_string.rb", "#{ fetch :configs_dir }/initializers/the_encrypted_string.rb"
+      end
+    end
+
+    desc "cap production encryptor:config:show"
+    task :show do
+      on roles(:all) do
+        config_file = "#{ fetch :configs_dir }/initializers/the_encrypted_string.rb"
+        execute(:cat, config_file)  if remote_file_exists? config_file
+      end
+    end
+  end
+end

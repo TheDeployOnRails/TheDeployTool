@@ -1,0 +1,29 @@
+mailer:
+  service: <%= Configs.mailer.service %>
+  host: "<%= Configs.mailer.host %>"
+
+  smtp:
+    address: <%= Configs.mailer.smtp.address %>
+    domain:  <%= Configs.mailer.smtp.domain %>
+    port:    <%= Configs.mailer.smtp.port %>
+
+    email:    "<%= Configs.mailer.smtp.email %>"
+    password: "<%= Configs.mailer.smtp.password %>"
+    authentication: plain
+
+oauth:
+  vkontakte:
+    app_id:     "<%= Configs.oauth.vkontakte.app_id %>"
+    app_secret: "<%= Configs.oauth.vkontakte.app_secret %>"
+
+  facebook:
+    app_id:     "<%= Configs.oauth.facebook.app_id %>"
+    app_secret: "<%= Configs.oauth.facebook.app_secret %>"
+
+  twitter:
+    app_id:     "<%= Configs.oauth.twitter.app_id %>"
+    app_secret: "<%= Configs.oauth.twitter.app_secret %>"
+
+  google_oauth2:
+    app_id:     "<%= Configs.oauth.google_oauth2.app_id %>"
+    app_secret: "<%= Configs.oauth.google_oauth2.app_secret %>"

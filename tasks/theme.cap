@@ -1,0 +1,10 @@
+namespace :theme do
+  namespace :config do
+    desc "cap production theme:config:copy"
+    task :copy do
+      on roles(:all) do
+        template "theme/app_config.rb", "#{ fetch(:configs_dir) }/app_config.rb"
+      end
+    end
+  end
+end

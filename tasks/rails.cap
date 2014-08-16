@@ -1,0 +1,10 @@
+namespace :rails do
+  # cap production rails:log
+  task :log do
+    on roles(:all) do
+      within fetch(:log_dir) do
+        execute :tail, '-f', "./#{ fetch(:stage) }.log", '-n', '10'
+      end
+    end
+  end
+end

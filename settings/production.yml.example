@@ -1,0 +1,120 @@
+configs:
+  domain: <%= domain %>
+
+  branch: master
+  repo: GIT_REPO
+  shared_uploads: public/uploads
+  app_secret: b965925b674e0262a9d12fd57e53ca86a23ddc750c3d3b5f9cc819af2f6e22ef4f4d453c4d192770ade9cf5e17081ecb0cd89e0e2314f93076c01b575bd837db
+
+  skip_assets_precompile: false
+  deploy_to: /var/www/new_rails_project/
+
+  # where Dump will be saved (/tmp by default)
+  # local_backups_dir: /Users/admin/rails/DUMPS
+
+  keep_releases: 10
+
+  web_server: unicorn
+
+  tools:
+    rails_config: true
+    redis:        false
+    sidekiq:      false
+    sphinx:       false
+    whenever:     false
+    new_relic:    false
+    encryptor:    false
+
+  rvm:
+    ruby: 2.1.1
+    gemset: cap3
+    # gem_version: 1.6.2
+
+  unicorn:
+    socket_name: rails_app_production
+    workers: 3
+
+  sphinx:
+    port: 9460
+
+  new_relic:
+    app_name: RAILS_APP
+    key:  NEW_RELIC_TOKEN
+
+  redis:
+    port: 6400
+    host: localhost
+    namespace: rails_app_production
+
+  whenever:
+    namespace: rails_app_production
+
+  sidekiq:
+    namespace: rails_app_production
+
+  encryptor:
+    algorithm: aes-128-cbc
+    key:  191226f6a02104413d17081bef1fc22ed6d01f16cfe1932bdeacb2cce04b
+    iv:   5f62869a3ea2bde9dca95409768d8fbeb65e7a6706203562df2926cdc1cc
+    salt: f91259bfe4b8ad784c0ba6624713b0f54ef003aaac5c96bcc6f71a250246
+
+  defaults:
+    ssh: &ssh_defaults
+      password:
+      auth_methods:
+        - publickey
+        - password
+      forward_agent: true
+
+  role:
+    app:
+      address: <%= server_addr %>
+
+      ssh:
+        <<: *ssh_defaults
+        user: rails_app_new
+        password: RAILS_USER_PASSWORD
+
+  db:
+    host:     localhost
+    adapter:  mysql2
+    username: rails
+    password: MYSQL_RAILS_USER_PASSWORD
+    name:     rails_app_production
+    encoding: utf8
+    pool:     30
+
+  mailer:
+    service: smtp
+
+    host: 'http://site.com'
+
+    sandmail:
+      location:  '/usr/sbin/sendmail'
+      arguments: '-i -t'
+
+    smtp:
+      email:    'robot@site.com'
+      password: PassWord123
+
+      authentication: plain
+      address: 'smtp.yandex.ru'
+      domain:  'yandex.ru'
+      port:    25
+
+  oauth:
+    vkontakte:
+      app_id:     VK_APP_ID
+      app_secret: VK_APP_TOKEN
+
+    facebook:
+      app_id:     FB_APP_ID
+      app_secret: FB_APP_TOKEN
+
+    twitter:
+      app_id:     TW_APP_ID
+      app_secret: TW_APP_TOKEN
+
+    google_oauth2:
+      app_id:     GP_APP_ID
+      app_secret: GP_APP_TOKEN

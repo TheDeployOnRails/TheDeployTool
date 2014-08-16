@@ -1,0 +1,33 @@
+namespace :rsync do
+  desc "RVM_HOOK=false cap production rsync:files"
+  task :files do
+    task! 'rsync:public_uploads'
+    task! 'rsync:public_system'
+  end
+
+  desc "RVM_HOOK=false cap production rsync:public_uploads"
+  task :public_uploads do
+    host = "#{ Configs.role.app.ssh.user }@#{ Configs.role.app.address }"
+    dir  = "#{ shared_path }/public/uploads"
+
+    from = "#{ host }:#{ dir }"
+    to   = "../public"
+    cmd  = "rsync -chavzPr #{ from } #{ to }"
+
+    puts   cmd
+    system cmd
+  end
+
+  desc "RVM_HOOK=false cap production rsync:public_system"
+  task :public_system do
+    host = "#{ Configs.role.app.ssh.user }@#{ Configs.role.app.address }"
+    dir  = "#{ shared_path }/public/system"
+
+    from = "#{ host }:#{ dir }"
+    to   = "../public"
+    cmd  = "rsync -chavzPr #{ from } #{ to }"
+
+    puts   cmd
+    system cmd
+  end
+end
